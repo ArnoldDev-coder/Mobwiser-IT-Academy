@@ -56,16 +56,14 @@ class ContactAction
         try {
             $email = (new Email())
                 ->from($params['email'])
-                ->to('you@example.com')
-                //->replyTo('contact@buzz.com')
-                ->priority(Email::PRIORITY_HIGH)
+                ->to('school@contact.com')
                 ->subject('Formulaire de contact')
                 ->text($this->renderer->render('@contact/email/message', $params))
                 ->html($this->renderer->render('@contact/email/message', $params));
             $this->mailer->send($email);
             $this->flashMessage->success($this->message['success']);
         }catch (TransportExceptionInterface $e) {
-            $this->flashMessage->error($this->message['mailError']);
+            $this->flashMessage->error($e);
         }
         return new redirectResponse((string)$request->getUri());
     }

@@ -12,7 +12,7 @@ class MailerFactory
     public function __invoke(): Mailer
     {
         $eventDispatcher = new EventDispatcher();
-        $transport = Transport::fromDsn('smtp://localhost', $eventDispatcher);
+        $transport = Transport::fromDsn('smtp://localhost:1025', $eventDispatcher);
         return new Mailer($transport, null, $eventDispatcher);
 
     }
