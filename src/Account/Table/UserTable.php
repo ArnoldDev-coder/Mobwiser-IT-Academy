@@ -17,9 +17,6 @@ class UserTable extends Table
     }
     public function findAll(): Query
     {
-        return $this->makeQuery()
-            ->join( 'menu as m', 'm.user_id = r.id')
-            ->select('r.*,m.nom , m.description,m.price')
-            ->order('r.id ASC');
+        return $this->makeQuery();
     }
 }
