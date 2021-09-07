@@ -1,0 +1,24 @@
+{% extends 'layout.twig' %}
+{% block body %}
+    <div class="col-md-12" style="padding-left: 10rem; padding-right: 15rem">
+        {% if flash('error') %}
+            <div class="alert alert-danger">
+                {{ flash('error') }}
+            </div>
+        {% endif %}
+        {% if flash('success') %}
+            <div class="alert alert-success">
+                {{ flash('success') }}
+            </div>
+        {% endif %}
+        {% set token = csrf_input() %}
+        <form action="{{ path('auth.login') }}" method="post">
+            {{ field('username', null, 'Nom d\'utilisateur') }}
+            {{ field('password', null, 'Mot de passe', {type: 'password'}) }}
+            <button class="btn btn-primary">
+                Se connecter
+                {{ token | raw }}
+            </button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'layout.twig' %}
+{% block body %}
+
+    {% set token = csrf_input() %}
+    <div style="padding-left: 10rem; padding-right: 15rem">
+        {% if flash('error') %}
+            <div class="alert alert-danger">
+                {{ flash('error') }}
+            </div>
+        {% endif %}
+        {% if flash('success') %}
+            <div class="alert alert-success">
+                {{ flash('success') }}
+            </div>
+        {% endif %}
+        <h1>Mon compte</h1>
+        <form action="" method="post">
+            {{ field('username', user.username, 'Nom d\'utilisateur') }}
+            {{ field('firstname', user.firstname, 'Prénom') }}
+            {{ field('lastName', user.lastName, 'Post Nom') }}
+            {{ field('password', null, 'Mot de passe', {type: 'password'}) }}
+            {{ field('password_confirm', null, 'Confirmation de mot de passe',{type: 'password'}) }}
+            <button class="btn btn-primary">
+                Modifiez
+                {{ token | raw }}
+            </button>
+        </form>
+    </div>
+{% endblock %}
