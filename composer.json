@@ -1,0 +1,39 @@
+{
+    "name": "musanzi-coder/annual-project",
+    "description": "Guest House management project",
+    "autoload": {
+        "psr-4": {
+            "Kernel\\": "src/Kernel/",
+            "App\\" : "src/",
+            "Tests\\" : "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "wilfried musanzi",
+            "email": "musanziwilfried@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "filp/whoops": "^2.13",
+        "symfony/var-dumper": "^5.3",
+        "robmorgan/phinx": "^0.12.7",
+        "fakerphp/faker": "^1.15",
+        "middlewares/whoops": "^2.0",
+        "phpunit/phpunit": "^9.5"
+    },
+    "require": {
+        "http-interop/response-sender": "^1.0",
+        "mezzio/mezzio-fastroute": "^3.2",
+        "mezzio/mezzio-router": "^3.4",
+        "guzzlehttp/psr7": "^2.0",
+        "php-di/php-di": "^5.4",
+        "twig/twig": "^3.3",
+        "ext-pdo": "*",
+        "pagerfanta/pagerfanta": "^3.2",
+        "intervention/image": "^2.6",
+        "symfony/mailer": "^5.3",
+        "symfony/google-mailer": "^5.3"
+    }
+}
