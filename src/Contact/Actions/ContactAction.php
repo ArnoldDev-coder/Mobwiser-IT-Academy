@@ -33,7 +33,6 @@ class ContactAction
 
     public function __invoke(ServerRequestInterface $request): string|RedirectResponse
     {
-
         if ($request->getMethod() === 'GET') {
             return $this->renderer->render('@contact/contact');
         }
@@ -42,28 +41,29 @@ class ContactAction
             ->length('name', 4)
             ->email('email')
             ->length('content', 5, 20);
-        if ($validator->isValid()){
+        if ($validator->isValid()) {
             return $this->sendMail($request);
-        }else{
+        } else {
             $errors = $validator->getErrors();
             $this->flashMessage->error($this->message['error']);
-            return  $this->renderer->render('@contact/contact', compact('errors'));
+            return $this->renderer->render('@contact/contact', compact('errors'));
         }
     }
+
     private function sendMail(ServerRequestInterface $request): RedirectResponse
     {
         $params = $request->getParsedBody();
+        $email = (new Email())
+            ->from($params['email'])
+            ->to('school@contact.com')
+            ->subject('Formulaire de contact')
+            ->text($this->renderer->render('@contact/email/message', $params))
+            ->html($this->renderer->render('@contact/email/message', $params));
         try {
-            $email = (new Email())
-                ->from($params['email'])
-                ->to('school@contact.com')
-                ->subject('Formulaire de contact')
-                ->text($this->renderer->render('@contact/email/message', $params))
-                ->html($this->renderer->render('@contact/email/message', $params));
             $this->mailer->send($email);
             $this->flashMessage->success($this->message['success']);
-        }catch (TransportExceptionInterface $e) {
-            $this->flashMessage->error($e);
+        } catch (TransportExceptionInterface $e) {
+            $this->flashMessage->error($this->message['mailError']);
         }
         return new redirectResponse((string)$request->getUri());
     }
