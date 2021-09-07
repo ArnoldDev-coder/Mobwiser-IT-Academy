@@ -12,12 +12,12 @@ use Kernel\Renderer\Renderer;
 use Kernel\Router\Router;
 use Kernel\Session\FlashMessage;
 use Kernel\Validator;
+use Psr\Http\Message\ResponseInterface;
 
 class SignupAction
 {
 
     use RouterAware;
-
 
     public function __construct(private Renderer         $renderer,
                                 private UserTable        $userTable,
@@ -27,8 +27,7 @@ class SignupAction
     {
     }
 
-    public
-    function __invoke(ServerRequest $request): string|\Psr\Http\Message\ResponseInterface
+    public function __invoke(ServerRequest $request): string|ResponseInterface
     {
         $params = $request->getParsedBody();
         $validator = new Validator($params);
