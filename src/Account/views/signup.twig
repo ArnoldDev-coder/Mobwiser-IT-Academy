@@ -14,14 +14,20 @@
         {% set token = csrf_input() %}
         <form action="{{ path('signup') }}" method="post">
             <div class="row">
-                <div class="col-md-4">
-                    {{ field('firstname', user.firstname, 'Prénom') }}
+                <div class="col-md-6">
+                    {{ field('name', user.name, 'Nom') }}
                 </div>
-                <div class="col-md-4">
-                    {{ field('lastName', user.lastName, 'Post nom') }}
+                <div class="col-md-6">
+                    {{ field('last_name', user.last_name, 'Post nom') }}
                 </div>
-                <div class="col-md-4">
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
                     {{ field('username', user.username, 'Nom d\'utilisateur') }}
+                </div>
+                <div class="col-md-6">
+                    {{ field('who_invite', user.who_invite, 'Qui vous a parler de nous ? (nom d\'utilisateur)') }}
                 </div>
             </div>
             {{ field('email', user.email, 'Adresse email') }}
