@@ -1,0 +1,58 @@
+{% extends '@admin/layout.twig' %}
+
+{% block body %}
+    <h1>Gestion des utilisateurs</h1>
+    <div class="container">
+        {% if flash('success') %}
+            <div class="alert alert-success">
+                {{ flash('success') }}
+            </div>
+        {% endif %}
+        {% if flash('error') %}
+            <div class="alert alert-danger">
+                {{ flash('error') }}
+            </div>
+        {% endif %}
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Username</td>
+            <td>Post nom</td>
+            <td>Nom</td>
+            <td>Role</td>
+            <td>Email</td>
+            <td>Due</td>
+            <td>Actions</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% set token = csrf_input()  %}
+        {% for item in items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.username }}</td>
+                <td>{{ item.lastName }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.role }}</td>
+                <td>{{ item.email }}</td>
+                {% if item.due and item.due > 0 %}
+                    <td>{{ item.due }} $</td>
+                {% else %}
+                    <td>0 $</td>
+                {% endif %}
+                <td><a href="{{ path(routePrefix ~ '.edit',{id: item.id}) }}" class="btn btn-primary">Voir plus</a>
+                    <form style="display: inline;" action="{{ path(routePrefix ~ '.delete', {id: item.id}) }}"
+                          method="POST" onsubmit="return confirm('êtes vous sûr ?')">
+                        <input type="hidden" name="_METHOD" value="DELETE">
+                        <button class="btn btn-danger" type="submit">Supprimer</button>
+                        {{ token | raw }}
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ paginate(items, routePrefix ~'.index') }}
+{% endblock %}

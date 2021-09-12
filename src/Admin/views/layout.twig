@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/3.0.7/flatpickr.css">
+    <title>Guest House Walid</title>
+</head>
+<style>
+    body {
+        padding-top: 5rem;
+        margin-left: 4rem;
+    }
+</style>
+<body>
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+        <li class="navbar-item {{ is_subpath('dashboard') ? 'active' }} ">
+            <a class="nav-link" href="{{ path('dashboard') }}">Dashboard</a>
+        </li>
+        <li class="navbar-item {{ is_subpath('admin.users.index') ? 'active' }} ">
+            <a class="nav-link" href="{{ path('admin.users.index') }}">Utilisteurs</a>
+        </li>
+    </ul>
+    <div class="navbar-nav">
+        {% set token = csrf_input() %}
+        <div class="navbar-text " style="padding-right: 0.5rem">Connecté en tant {{ current_user().role }} </div>
+        <li class="navbar-item  {{ is_subpath('account')? 'active' }} ">
+            <a class="nav-link" href="{{ path('account') }}">Mon compte</a>
+        </li>
+        <form class="nav-item active " method="post" action="{{ path('auth.logout') }}">
+            <button class="btn btn-danger">Se déconnecter</button>
+            {{ token | raw }}
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.2/timeago.locales.min.js"></script>
+<script>
+    timeago().render(document.querySelectorAll('.timeago'), 'fr')
+</script>
+<script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/3.0.7/flatpickr.js"></script>
+<script>
+    flatpickr('.datepicker', {enableTime: true, altInput: true, altFormat: 'j F Y', dateFormat: 'Y-m-d H:i:S'});
+</script>
+</body>
+</html>

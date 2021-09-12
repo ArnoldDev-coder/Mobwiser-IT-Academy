@@ -3,6 +3,7 @@
 namespace App\Admin;
 
 use App\Admin\Actions\AdminDashboard;
+use App\Admin\Actions\UserCurd;
 use Kernel\Modules;
 use Kernel\Renderer\Renderer;
 use Kernel\Router\Router;
@@ -16,7 +17,9 @@ class AdminModule extends Modules
     {
         $router = $container->get(Router::class);
         $renderer = $container->get(Renderer::class);
+        $prefix =$container->get('admin.prefix');
         $renderer->addPath('admin', __DIR__ . '/views');
-        $router->get($container->get('admin.prefix'), AdminDashboard::class, 'admin');
+        $router->get($prefix, AdminDashboard::class, 'dashboard');
+        $router->crud("$prefix/users", UserCurd::class, 'admin.users');
     }
 }

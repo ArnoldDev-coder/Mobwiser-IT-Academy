@@ -1,0 +1,13 @@
+{% extends '@admin/layout.twig' %}
+{% block body %}
+    {% set token = csrf_input() %}
+    <div>
+        <form action="{{ path(routePrefix ~ '.edit', {id: item.id}) }}" method="POST" enctype="multipart/form-data">
+            {% include viewPath ~ '/form.twig' %}
+            <div style="padding-top: 1rem; padding-bottom: 2rem">
+                <button class="btn btn-primary" type="submit">Editer</button>
+                {{ token | raw }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

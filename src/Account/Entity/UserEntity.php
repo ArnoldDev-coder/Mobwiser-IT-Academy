@@ -85,9 +85,9 @@ class UserEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getWhoInvite(): string
+    public function getWhoInvite(): ?string
     {
         return $this->whoInvite;
     }

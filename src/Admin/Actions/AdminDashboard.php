@@ -1,16 +1,24 @@
 <?php
-namespace  App\Admin\Actions;
 
+namespace App\Admin\Actions;
+
+use App\Account\Table\UserTable;
 use Kernel\Renderer\Renderer;
 
 class AdminDashboard
 {
-    public function __construct(private Renderer $renderer)
+    private Renderer $renderer;
+    private UserTable $userTable;
+
+    public function __construct(Renderer $renderer, UserTable $userTable)
     {
+        $this->renderer = $renderer;
+        $this->userTable = $userTable;
     }
 
     public function __invoke(): string
     {
-        return $this->renderer->render('@admin/index');
+        $users = $this->userTable->count();
+        return $this->renderer->render('@admin/widget', compact('users'));
     }
 }
