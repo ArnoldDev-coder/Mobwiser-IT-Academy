@@ -20,4 +20,5 @@ class UserTable extends Table
     {
         return $this->makeQuery();
     }
+
 }

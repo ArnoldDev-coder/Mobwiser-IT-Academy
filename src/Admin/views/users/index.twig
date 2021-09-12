@@ -42,7 +42,7 @@
                 {% else %}
                     <td>0 $</td>
                 {% endif %}
-                <td><a href="{{ path(routePrefix ~ '.edit',{id: item.id}) }}" class="btn btn-primary">Voir plus</a>
+                <td><a href="{{ path(routePrefix ~ '.edit',{id: item.id}) }}" class="btn btn-primary">Editer</a>
                     <form style="display: inline;" action="{{ path(routePrefix ~ '.delete', {id: item.id}) }}"
                           method="POST" onsubmit="return confirm('êtes vous sûr ?')">
                         <input type="hidden" name="_METHOD" value="DELETE">

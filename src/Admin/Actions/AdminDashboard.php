@@ -19,6 +19,7 @@ class AdminDashboard
     public function __invoke(): string
     {
         $users = $this->userTable->count();
-        return $this->renderer->render('@admin/widget', compact('users'));
+        $due = $this->userTable->findDue();
+        return $this->renderer->render('@admin/widget', compact('users', 'due'));
     }
 }
