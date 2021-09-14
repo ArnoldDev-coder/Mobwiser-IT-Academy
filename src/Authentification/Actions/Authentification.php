@@ -32,7 +32,7 @@ class Authentification
         /** @var UserEntity|null $user */
         $user = $this->userTable->findBy('username', $username);
         if ($user && password_verify($password, $user->password)) {
-            $this->session->set('auth.user', $user->id);
+            $this->session->set('auth.user', $user->getId());
             return $user;
         }
         return null;

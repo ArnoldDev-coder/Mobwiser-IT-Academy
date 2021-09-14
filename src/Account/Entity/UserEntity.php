@@ -7,19 +7,22 @@ class UserEntity
     public $username;
     public $email;
     public $password;
-    public $roles;
-    private $firstName;
+    public $role;
+    private $name;
+    private $lastName;
+    private $due;
+    private $whoInvite;
 
 
-    public function getFirstName(): string
+    public function getName(): string
     {
-        return $this->firstName;
+        return $this->name;
     }
 
 
-    public function setFirstName(string $firstName): self
+    public function setName(string $name): self
     {
-        $this->firstName = $firstName;
+        $this->name = $name;
         return $this;
     }
 
@@ -30,21 +33,20 @@ class UserEntity
     }
 
 
-    public function setLastName(string $lastName): self
+    public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
         return  $this;
     }
-    private $lastName;
 
     public function getUsername(): string
     {
         return $this->username;
     }
 
-    public function getRoles(): array
+    public function getRole(): array
     {
-        return [$this->roles];
+        return [$this->role];
     }
 
     public function getId(): int
@@ -53,26 +55,50 @@ class UserEntity
     }
 
 
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @param mixed $email
-     */
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
         return  $this;
+    }
+
+    public function setDue(?int $due): self
+    {
+        $this->due = $due;
+        return $this;
+    }
+
+
+    public function getDue(): ?int
+    {
+        return $this->due;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getWhoInvite(): ?string
+    {
+        return $this->whoInvite;
+    }
+
+    /**
+     * @param string|null $whoInvite
+     * @return UserEntity
+     */
+    public function setWhoInvite(?string $whoInvite): UserEntity
+    {
+        $this->whoInvite = $whoInvite;
+        return $this;
     }
 }

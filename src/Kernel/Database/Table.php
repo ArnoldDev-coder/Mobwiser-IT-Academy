@@ -2,7 +2,6 @@
 
 namespace Kernel\Database;
 
-use App\Authentification\Actions\Authentification;
 use PDO;
 use stdClass;
 
@@ -66,7 +65,6 @@ class Table
      *
      * @param int $id
      * @return mixed
-     * @throws NoRecodrException
      */
     public function find(int $id): mixed
     {
@@ -99,13 +97,6 @@ class Table
         return $statement->execute($params);
     }
 
-    public function updatePrice(array $params): self
-    {
-        $fieldQuery = $this->buildFieldQuery($params);
-        $statement = $this->pdo->prepare("UPDATE $this->table SET $fieldQuery");
-        $statement->execute($params);
-        return $this;
-    }
 
     public function insert(array $params): bool
     {
@@ -128,6 +119,12 @@ class Table
         return $statement->execute([$id]);
     }
 
+    public function findDue()
+    {
+        $query = $this->pdo->prepare("SELECT SUM(due) FROM $this->table");
+        $query->execute();
+        return $query->fetchColumn();
+    }
 
     /**
      * @param array $params

@@ -1,0 +1,34 @@
+{% extends '@admin/layout.twig' %}
+{% block body %}
+
+    <div style="padding-left: 10rem; padding-right: 15rem">
+        {% if flash('error') %}
+            <div class="alert alert-danger">
+                {{ flash('error') }}
+            </div>
+        {% endif %}
+        {% if flash('success') %}
+            <div class="alert alert-success">
+                {{ flash('success') }}
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ users }} Utilisateurs</h5>
+                        <a href="{{ path('admin.users.index') }}" class="btn btn-primary">Gérer les utilisateurs</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total due</h5>
+                        <h5 class="text-primary">{{ due }} $</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

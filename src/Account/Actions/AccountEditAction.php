@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\ServerRequest;
 use Kernel\Renderer\Renderer;
 use Kernel\Response\RedirectResponse;
 use Kernel\Session\FlashMessage;
+use Kernel\Validator;
 
 class AccountEditAction
 {
@@ -29,13 +30,13 @@ class AccountEditAction
         $user = $this->auth->getUser();
         $params = $request->getParsedBody();
         $validator = (new Validator($params))
-            ->required('firstname', 'lastName')
+            ->required('name', 'last_name', 'username')
         ->confirm('password');
         if ($validator->isValid()) {
             $userParams =[
-                'firstname' => $params['firstname'],
+                'name' => $params['name'],
                 'username' => $params['username'],
-                'lastName' => $params['lastName'],
+                'last_name' => $params['last_name'],
             ];
             if (!empty($params['password'])) {
                     $userParams['password']= password_hash($params['password'], PASSWORD_DEFAULT);

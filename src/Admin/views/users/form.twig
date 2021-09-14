@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-6">
+        {{ field('name', item.name, 'Nom d\'utilisateur') }}
+    </div>
+    <div class="col-md-6">
+        {{ field('last_name', item.lastName, 'Post Nom') }}
+    </div>
+</div>
+{{ field('username', item.username, 'Username') }}
+<div class="row">
+    <div class="col-md-6">
+        {{ field('due', item.due, 'Due ($)', {type: 'number'}) }}
+    </div>
+    <div class="col-md-6">
+        {{ field('who_invite', item.whoInvite, 'Inviter par') }}
+    </div>
+</div>
+

@@ -3,6 +3,8 @@
 namespace Kernel\Actions;
 
 use GuzzleHttp\Psr7\ServerRequest;
+use Kernel\Database\NoRecodrException;
+use Kernel\Database\Table;
 use Kernel\Renderer\Renderer;
 use Kernel\Router\Router;
 use Kernel\Session\FlashMessage;
@@ -38,6 +40,9 @@ class CrudAction
         $this->flashMessage = $flashMessage;
     }
 
+    /**
+     * @throws NoRecodrException
+     */
     public function __invoke(ServerRequest $request): string|ResponseInterface
     {
         $this->renderer->addGlobal('viewPath', $this->viewPath);
@@ -62,9 +67,11 @@ class CrudAction
         return $this->renderer->render($this->viewPath . '/index', $this->formParams(compact('items')));
     }
 
+    /**
+     * @throws NoRecodrException
+     */
     private function edit(ServerRequest $request): string|ResponseInterface
     {
-
         $item = $this->table->find($request->getAttribute('id'));
         $validator = $this->getValidator($request);
         if ($request->getMethod() === "POST") {

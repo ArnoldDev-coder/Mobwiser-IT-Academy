@@ -13,13 +13,40 @@
                 {{ flash('success') }}
             </div>
         {% endif %}
-        <h1>Mon compte</h1>
-        <form action="" method="post">
-            {{ field('username', user.username, 'Nom d\'utilisateur') }}
-            {{ field('firstname', user.firstname, 'Prénom') }}
-            {{ field('lastName', user.lastName, 'Post Nom') }}
-            {{ field('password', null, 'Mot de passe', {type: 'password'}) }}
-            {{ field('password_confirm', null, 'Confirmation de mot de passe',{type: 'password'}) }}
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h1>
+                    Mon compte
+                </h1>
+            </div>
+            <div class="col-md-6">
+                <h1>
+                    {% if user.due and user.due > 0 %}
+                        Solde {{ user.due }} $
+                    {% endif %}
+                </h1>
+            </div>
+        </div>
+
+        <form action="" method="post" >
+            <div class="row">
+                <div class="col-md-6">
+                    {{ field('username', user.username, 'Nom d\'utilisateur') }}
+                </div>
+                <div class="col-md-6">
+                    {{ field('name', user.name, 'Nom') }}
+                </div>
+            </div>
+            {{ field('last_name', user.lastName, 'Post Nom') }}
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ field('password', null, 'Mot de passe', {type: 'password'}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ field('password_confirm', null, 'Confirmation de mot de passe',{type: 'password'}) }}
+                </div>
+            </div>
             <button class="btn btn-primary">
                 Modifiez
                 {{ token | raw }}

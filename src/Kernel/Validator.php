@@ -3,6 +3,7 @@
 namespace Kernel;
 
 use DateTime;
+use Kernel\Database\Table;
 use Kernel\Validator\ValidationErrors;
 use PDO;
 
@@ -149,7 +150,7 @@ class Validator
     public function exists(string $key, string $table, PDO $pdo): self
     {
         $value = $this->getValue($key);
-        $statement = $pdo->prepare("SELECT id FROM $table WHERE id = ?");
+        $statement = $pdo->prepare("SELECT username FROM $table WHERE username = ?");
         $statement->execute([$value]);
         if ($statement->fetchColumn() === false) {
             $this->addError($key, 'exists', [$table]);

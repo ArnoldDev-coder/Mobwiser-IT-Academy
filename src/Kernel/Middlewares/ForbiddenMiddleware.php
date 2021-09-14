@@ -42,7 +42,7 @@ class ForbiddenMiddleware implements MiddlewareInterface
     public function redirectLogin(ServerRequestInterface $request): RedirectResponse
     {
         $this->session->set('auth.redirect', $request->getUri()->getPath());
-        $this->flashMessage->error('Vous devez vous connecter comme admin pour acceder à cette page');
+        $this->flashMessage->error('Vous devez vous connecter pour acceder à cette page');
         return new RedirectResponse($this->loginPath);
     }
 

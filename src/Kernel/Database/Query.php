@@ -23,6 +23,8 @@ class Query implements IteratorAggregate
 
     private $limit;
 
+    private $group = [];
+
     private $joins;
 
     private $pdo;
@@ -81,6 +83,11 @@ class Query implements IteratorAggregate
     public function order(string $order): self
     {
         $this->order[] = $order;
+        return $this;
+    }
+    public function group(string $group): self
+    {
+        $this->group[] = $group;
         return $this;
     }
 
